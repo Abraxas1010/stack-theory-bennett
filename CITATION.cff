@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this formalization, please cite it using the metadata below."
+title: "Stack Theory (Bennett 2026) — Lean 4 Formalization of Delegation Bounds"
+type: software
+license: Apoth3osis License Stack v1
+authors:
+  - family-names: Bennett
+    given-names: Matthew T.
+    affiliation: "Phil. Trans. B (Royal Society)"
+    orcid: ""
+  - name: "Apoth3osis Labs"
+    website: "https://apoth3osis.io"
+repository-code: "https://github.com/Abraxas1010/stack-theory-bennett"
+url: "https://apoth3osis.io/paper-proof-code/stack-theory-bennett"
+date-released: "2026-03-15"
+keywords:
+  - lean4
+  - formal-verification
+  - delegation-theory
+  - multi-agent-systems
+  - heyting-algebra
+  - nucleus-operator
+  - ai-alignment
+  - stack-theory
+references:
+  - type: article
+    title: "Are Biological Systems More Intelligent Than Artificial Intelligence?"
+    authors:
+      - family-names: Bennett
+        given-names: Matthew T.
+    journal: "Phil. Trans. B (Royal Society)"
+    year: 2026
+    identifiers:
+      - type: other
+        value: "arXiv:2405.02325v7"
