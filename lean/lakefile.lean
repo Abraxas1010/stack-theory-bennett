@@ -25,4 +25,4 @@ require batteries from git
 
 @[default_target]
 lean_lib HeytingLean where
-  srcDir := "HeytingLean"
+  srcDir := "."
