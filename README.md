@@ -18,11 +18,11 @@ We humbly thank the collective intelligence of humanity for providing the techno
 
 # Stack Theory (Bennett 2026) — Delegation Bounds Verified in Lean 4
 
-Lean 4 formalization of Bennett's Stack Theory proving hard information-theoretic bounds on delegation in multi-layer intelligence architectures, with novel bridge theorems connecting weakness ordering to Heyting nucleus fixed-point algebras.
+Lean 4 formalization of Bennett's Stack Theory proving hard combinatorial bounds on delegation in multi-layer intelligence architectures, with bridge theorems connecting weakness ordering to Heyting nucleus fixed-point algebras.
 
 ## What This Proves
 
-This formalization machine-checks three central results from Bennett's "Are Biological Systems More Intelligent Than Artificial Intelligence?" (Phil. Trans. B, [arXiv:2405.02325v7](https://arxiv.org/abs/2405.02325)):
+This formalization machine-checks three central results from Bennett's "Are Biological Systems More Intelligent Than Artificial Intelligence?" (in press, Phil. Trans. B, [arXiv:2405.02325v7](https://arxiv.org/abs/2405.02325)):
 
 1. **Law of the Stack (Theorem 5.1):** Adaptability at layer *i+1* is bounded by 2^|Ext(πᵢ)|. The proof composes a 4-lemma ESM chain: language ≤ pow, ext ⊆ language, utility ≤ language, abstractor ≤ ext.
 
@@ -30,26 +30,33 @@ This formalization machine-checks three central results from Bennett's "Are Biol
 
 3. **Cancer-Analogue Splintering (Proposition 6.1):** Over-constraining boundary conditions on a collective causes loss of collective policy — the group fragments into splinters. Every locally feasible policy is forced onto a proper subset of the collective's parts.
 
-### Novel Bridge Theorems
+### Bridge Theorems (Bennett ↔ Heyting Nucleus)
 
-Four bridge theorems connect Bennett's combinatorial framework to Heyting algebra nucleus theory. These are **original mathematics, not in Bennett's paper**:
+Six results connect Bennett's combinatorial framework to Heyting algebra nucleus theory. Two are substantive bridge theorems requiring genuine algebraic reasoning; four are infrastructure lemmas (one-line consequences of definitions) that support the bridge.
 
-| Theorem | Lean Name | Significance |
-|---------|-----------|--------------|
-| Weakness monotone on Ω_R | `weakness_monotone_on_fixed_points` | Contravariant encoding sends lattice order to extension inclusion |
-| Fixed-policy contravariance | `fixedPolicyEncoding_contravariant` | Concrete fixed-locus encoding inherits extension antitonicity |
-| Weakness on fixed policies | `weakness_monotone_on_fixed_policies` | Actual (not parameterized) weakness monotonicity on nucleus-fixed policies |
-| **Collective ↔ nontrivial meet** | `collective_identity_yields_nontrivial_meet_in_fixed_locus` | **Central result:** collective identity in Bennett's sense is equivalent to nontrivial meet in the Heyting fixed-point algebra Ω_R |
-| Stable policy inf-closure | `stable_policy_closed_inf` | Fixed-locus is closed under policy intersection via nucleus meet-preservation |
-| Abstractor through nucleus | `abstractorThroughNucleus_eq_abstractor_of_fixed` | Nucleus-mediated abstractor collapses to ordinary abstractor on fixed truth sets |
+**Substantive bridge theorems:**
+
+| Theorem | Lean Name | Content |
+|---------|-----------|---------|
+| **Collective ↔ nontrivial meet** | `collective_identity_yields_nontrivial_meet_in_fixed_locus` | **Central result:** collective identity in Bennett's sense implies nontrivial meet in the Heyting fixed-point algebra Ω_R. ~15-line proof with genuine algebraic witness construction. |
+| Abstractor through nucleus | `abstractorThroughNucleus_eq_abstractor_of_fixed` | Nucleus-mediated abstractor collapses to ordinary abstractor when truth sets are already fixed points. |
+
+**Infrastructure lemmas (one-line, definitional):**
+
+| Lemma | Lean Name | Content |
+|-------|-----------|---------|
+| Weakness monotone on Ω_R | `weakness_monotone_on_fixed_points` | Cardinality monotonicity given a contravariant encoding (1 line: `Finset.card_le_card`) |
+| Fixed-policy contravariance | `fixedPolicyEncoding_contravariant` | Extension antitonicity through the fixed-locus encoding (1 line: `ext_mono` application) |
+| Weakness on fixed policies | `weakness_monotone_on_fixed_policies` | Combines the above two (1 line: `Finset.card_le_card` on the contravariant encoding) |
+| Stable policy inf-closure | `stable_policy_closed_inf` | Fixed-locus closed under intersection via nucleus meet-preservation (1 line: definitional rewrite) |
 
 ## Why It Matters
 
-**For AI architecture:** The Law of the Stack imposes hard ceilings on what multi-layer delegation can achieve. Each layer's adaptability is exponentially bounded by the extensions available to its predecessor. This is not a conjecture — it is a theorem with a machine-checked proof.
+**For AI architecture:** The Law of the Stack imposes combinatorial upper bounds on what multi-layer delegation can achieve. The bound (2^|Ext(πᵢ)|) is exponential in the extension set size — a genuine ceiling, though in practice it may be very loose for concrete architectures. This is not a conjecture — it is a theorem with a machine-checked proof.
 
-**For alignment:** The cancer-analogue splintering theorem proves that over-constraining agent objectives causes structural fragmentation. This maps directly to phenomena observed in RLHF-trained systems: reward hacking, specification gaming, deceptive alignment. The formalization shows these are not engineering bugs — they are mathematical consequences of over-constraint.
+**For alignment (hypothesis):** The cancer-analogue splintering theorem proves that over-constraining *abstract* agent objectives causes structural fragmentation within the formalism. This is *analogous* to phenomena observed in RLHF-trained systems (reward hacking, specification gaming), but the formal connection between Bennett's abstract framework and concrete neural architectures is not established by this formalization. Whether real AI systems are instances of Bennett's model is an empirical question, not a proved theorem.
 
-**For mathematics:** The bridge theorems demonstrate that Bennett's sociological concept of "collective identity" has a precise algebraic characterization as nontrivial meet in a Heyting fixed-point algebra. This connects the sociology of multi-agent systems to abstract algebra in a way that is now machine-verified.
+**For mathematics:** The central bridge theorem demonstrates that Bennett's sociological concept of "collective identity" has a precise algebraic characterization as nontrivial meet in a Heyting fixed-point algebra. This connects the sociology of multi-agent systems to abstract algebra in a way that is now machine-verified.
 
 ## Formalization Stats
 
@@ -60,7 +67,8 @@ Four bridge theorems connect Bennett's combinatorial framework to Heyting algebr
 | Definitions | 38 |
 | Lines of Lean | 861 |
 | `sorry` count | **0** |
-| Bridge theorems (novel) | 6 |
+| Bridge theorems (substantive) | 2 |
+| Bridge infrastructure lemmas | 4 |
 | Core dependencies | 2 (Nucleus.lean, HeytingAlgebra.lean) |
 
 ## Build Instructions
@@ -107,7 +115,7 @@ lake build HeytingLean.Tests.StackTheory.AllSanity
 | `BoundaryConditions.lean` | `BoundaryConditions`, `restrictedCollective`, `isOverConstrained`, `feasibleParts`, `isSplinter` |
 | `CancerAnalogue.lean` | `overconstraint_implies_splintering` (Proposition 6.1), `overconstraint_yields_splinter` |
 
-### Bridge (`StackTheory/Bridge/`) — Novel Contributions
+### Bridge (`StackTheory/Bridge/`) — 2 Novel Theorems + 4 Infrastructure Lemmas
 
 | File | Contents |
 |------|----------|
@@ -148,11 +156,11 @@ WeakBoundaryDesign (application: CancerAnalogue)
 | Corollary 5.1 (delegation bound) | `delegation_bottleneck_fe` | `Stack/FreeEnergy.lean` |
 | Proposition 6.1 (splintering) | `overconstraint_implies_splintering` | `Collective/CancerAnalogue.lean` |
 | Proposition 6.1 (splinter construction) | `overconstraint_yields_splinter` | `Collective/CancerAnalogue.lean` |
-| Novel: weakness monotonicity | `weakness_monotone_on_fixed_points` | `Bridge/NucleusWeakness.lean` |
-| Novel: fixed-policy encoding | `fixedPolicyEncoding_contravariant` | `Bridge/NucleusWeakness.lean` |
-| Novel: weakness on fixed policies | `weakness_monotone_on_fixed_policies` | `Bridge/NucleusWeakness.lean` |
+| Bridge infra: weakness monotonicity | `weakness_monotone_on_fixed_points` | `Bridge/NucleusWeakness.lean` |
+| Bridge infra: fixed-policy encoding | `fixedPolicyEncoding_contravariant` | `Bridge/NucleusWeakness.lean` |
+| Bridge infra: weakness on fixed policies | `weakness_monotone_on_fixed_policies` | `Bridge/NucleusWeakness.lean` |
 | Novel: collective ↔ Ω_R meet | `collective_identity_yields_nontrivial_meet_in_fixed_locus` | `Bridge/NucleusWeakness.lean` |
-| Novel: stable policy inf-closure | `stable_policy_closed_inf` | `Bridge/NucleusWeakness.lean` |
+| Bridge infra: stable policy inf-closure | `stable_policy_closed_inf` | `Bridge/NucleusWeakness.lean` |
 | Novel: abstractor through nucleus | `abstractorThroughNucleus_eq_abstractor_of_fixed` | `Bridge/DelegationNucleus.lean` |
 | Application: HALO viable | `halo_viable` | `Applications/AgentHALO.lean` |
 | Application: HALO agent bound | `halo_agent_bound` | `Applications/AgentHALO.lean` |
@@ -179,7 +187,7 @@ WeakBoundaryDesign (application: CancerAnalogue)
 ## Source
 
 Bennett, M.T. "Are Biological Systems More Intelligent Than Artificial Intelligence?"
-Phil. Trans. B (Royal Society), [arXiv:2405.02325v7](https://arxiv.org/abs/2405.02325), Feb 2026.
+In press, Phil. Trans. B (Royal Society), [arXiv:2405.02325v7](https://arxiv.org/abs/2405.02325), Feb 2026.
 
 ## License
 

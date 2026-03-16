@@ -6,7 +6,7 @@ license: Apoth3osis License Stack v1
 authors:
   - family-names: Bennett
     given-names: Matthew T.
-    affiliation: "Phil. Trans. B (Royal Society)"
+    affiliation: "Australian National University"
     orcid: ""
   - name: "Apoth3osis Labs"
     website: "https://apoth3osis.io"
@@ -28,8 +28,9 @@ references:
     authors:
       - family-names: Bennett
         given-names: Matthew T.
-    journal: "Phil. Trans. B (Royal Society)"
+    journal: "Philosophical Transactions of the Royal Society B: Biological Sciences"
     year: 2026
+    status: in-press
     identifiers:
       - type: other
         value: "arXiv:2405.02325v7"
